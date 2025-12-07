@@ -41,7 +41,7 @@ npm install
 ```
 
 2. Configure the Weather API:
-   - Copy `config.example.js` to `config.js`
+   - Open `config.js` in the root directory
    - Replace the placeholder API key with your OpenWeatherMap API key
    - Get a free API key at [OpenWeatherMap](https://openweathermap.org/api)
 
@@ -52,12 +52,14 @@ const config = {
 ```
 
 3. Configure Firebase Authentication:
-   - Copy `firebase-config.example.js` to `firebase-config.js`
    - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
-   - Enable Authentication in your Firebase project
-   - Enable Google Sign-In and Email/Password authentication methods
-   - Copy your Firebase configuration from Project Settings
-   - Replace the placeholders in `firebase-config.js` with your actual Firebase config
+   - Enable Authentication in your Firebase project:
+     - Go to **Authentication** → **Sign-in method**
+     - Enable **Google** sign-in provider
+     - Enable **Email/Password** authentication
+     - Add authorized domains (e.g., `localhost`)
+   - Copy your Firebase configuration from **Project Settings** → **General** → **Your apps**
+   - Create `firebase-config.js` in the root directory and add your config:
 
 ```javascript
 const firebaseConfig = {
@@ -90,13 +92,17 @@ http://localhost:3000
 ## Usage
 
 ### User Authentication
-1. Click the "Sign In" button in the top-right corner
-2. Choose to sign in with:
-   - **Google**: Click "Continue with Google" and follow the OAuth flow
-   - **Email/Password**: Enter your email and password, then click "Sign In"
-   - **New User**: Click "Sign up" to create a new account
-3. Once signed in, your profile information will be displayed
-4. Click "Sign Out" to log out
+1. Click the **"Sign In"** button in the top-right corner
+2. Choose your preferred sign-in method:
+   - **Google Sign-In**: Click "Continue with Google" and follow the OAuth flow
+   - **Email/Password**: 
+     - Enter your email and password
+     - Click "Sign In" to log in
+     - Or click "Sign up" to create a new account
+3. Once signed in:
+   - Your profile picture and name will be displayed
+   - Access personalized features
+4. Click **"Sign Out"** to log out of your account
 
 ### Location Search
 1. Enter a location name in Vietnam (e.g., "Hanoi", "Ho Chi Minh City", "Da Nang")
@@ -160,16 +166,14 @@ Get points of interest near a location.
 ## Project Structure
 
 ```
-├── index.html              # Main HTML file with auth UI
-├── app.js                  # Frontend JavaScript (map, weather & translation)
-├── auth.js                 # Firebase authentication logic
-├── config.js               # Weather API key configuration
-├── config.example.js       # Example config file
-├── firebase-config.js      # Firebase configuration
-├── firebase-config.example.js # Example Firebase config file
-├── server.js               # Express server with API endpoints
-├── package.json            # Dependencies and scripts
-└── README.md               # This file
+├── index.html          # Main HTML file with auth UI
+├── app.js              # Frontend JavaScript (map, weather & translation)
+├── auth.js             # Firebase authentication logic
+├── config.js           # Weather API key configuration
+├── firebase-config.js  # Firebase configuration (create this file)
+├── server.js           # Express server with API endpoints
+├── package.json        # Dependencies and scripts
+└── README.md           # This file
 ```
 
 ## Weather Information
@@ -219,7 +223,6 @@ Features:
 - The application is configured to search specifically within Vietnam
 - Weather information updates with each location search
 - Translation quality depends on MyMemory API database
-- User authentication data is securely managed by Firebase
 
 ## Dependencies
 
@@ -231,7 +234,7 @@ Features:
 ## Future Enhancements
 
 - Add filters for different types of POIs (restaurants, museums, etc.)
-- Save favorite locations (requires authentication)
+- Save favorite locations (user-specific with Firebase)
 - Add directions between points
 - Weather forecast (multi-day predictions)
 - Export POI list
@@ -240,8 +243,6 @@ Features:
 - Translation history
 - Offline translation support
 - Voice input for translation
-- User preferences and settings storage
-- Social sharing features
 
 ## License
 
