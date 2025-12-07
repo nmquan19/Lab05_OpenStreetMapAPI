@@ -8,22 +8,9 @@ let auth;
 // Initialize Firebase when the script loads
 function initializeFirebase() {
     try {
-        // Import Firebase functions from the SDK
-        const { initializeApp } = firebase.app;
-        const { 
-            getAuth, 
-            signInWithPopup, 
-            GoogleAuthProvider,
-            signInWithEmailAndPassword,
-            createUserWithEmailAndPassword,
-            signOut,
-            onAuthStateChanged,
-            sendPasswordResetEmail
-        } = firebase.auth;
-
-        // Initialize Firebase app
-        app = initializeApp(firebaseConfig);
-        auth = getAuth(app);
+        // Initialize Firebase app using compat SDK
+        app = firebase.initializeApp(firebaseConfig);
+        auth = firebase.auth();
 
         // Set up authentication state listener
         setupAuthStateListener();
@@ -41,14 +28,13 @@ async function signInWithGoogle() {
         showAuthLoading(true);
         hideAuthError();
         
-        const { signInWithPopup, GoogleAuthProvider } = firebase.auth;
-        const provider = new GoogleAuthProvider();
+        const provider = new firebase.auth.GoogleAuthProvider();
         
         // Optional: Add additional scopes
         provider.addScope('profile');
         provider.addScope('email');
         
-        const result = await signInWithPopup(auth, provider);
+        const result = await auth.signInWithPopup(provider);
         const user = result.user;
         
         console.log('Google sign-in successful:', user.email);
@@ -68,8 +54,7 @@ async function signInWithEmail(email, password) {
         showAuthLoading(true);
         hideAuthError();
         
-        const { signInWithEmailAndPassword } = firebase.auth;
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
         const user = userCredential.user;
         
         console.log('Email sign-in successful:', user.email);
@@ -89,8 +74,7 @@ async function signUpWithEmail(email, password) {
         showAuthLoading(true);
         hideAuthError();
         
-        const { createUserWithEmailAndPassword } = firebase.auth;
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
         const user = userCredential.user;
         
         console.log('Sign-up successful:', user.email);
@@ -110,8 +94,7 @@ async function resetPassword(email) {
         showAuthLoading(true);
         hideAuthError();
         
-        const { sendPasswordResetEmail } = firebase.auth;
-        await sendPasswordResetEmail(auth, email);
+        await auth.sendPasswordResetEmail(email);
         
         showAuthSuccess('Password reset email sent! Check your inbox.');
         
@@ -126,8 +109,7 @@ async function resetPassword(email) {
 // Sign Out
 async function signOutUser() {
     try {
-        const { signOut } = firebase.auth;
-        await signOut(auth);
+        await auth.signOut();
         console.log('User signed out successfully');
     } catch (error) {
         console.error('Sign-out error:', error);
@@ -137,9 +119,7 @@ async function signOutUser() {
 
 // Authentication State Listener
 function setupAuthStateListener() {
-    const { onAuthStateChanged } = firebase.auth;
-    
-    onAuthStateChanged(auth, (user) => {
+    auth.onAuthStateChanged((user) => {
         if (user) {
             // User is signed in
             console.log('User is signed in:', user.email);
