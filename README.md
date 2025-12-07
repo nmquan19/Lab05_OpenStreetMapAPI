@@ -9,6 +9,8 @@ A web application that allows users to search for locations in Vietnam and displ
 - 📍 Shows points of interest near the searched location
 - ☀️ Real-time weather information using OpenWeatherMap API
 - 🌐 Text translation feature using MyMemory Translation API
+- 🔐 User authentication with Firebase (Google Sign-In and Email/Password)
+- 👤 User profile management with sign-in/sign-out functionality
 - 🎨 Beautiful UI with Tailwind CSS
 - 📱 Responsive design for mobile and desktop
 
@@ -29,6 +31,7 @@ A web application that allows users to search for locations in Vietnam and displ
 - **Overpass API**: Points of interest data
 - **OpenWeatherMap API**: Real-time weather information
 - **MyMemory Translation API**: Text translation service
+- **Firebase Authentication**: User authentication and authorization
 
 ## Installation
 
@@ -38,7 +41,7 @@ npm install
 ```
 
 2. Configure the Weather API:
-   - Open `config.js` in the root directory
+   - Copy `config.example.js` to `config.js`
    - Replace the placeholder API key with your OpenWeatherMap API key
    - Get a free API key at [OpenWeatherMap](https://openweathermap.org/api)
 
@@ -46,6 +49,25 @@ npm install
 const config = {
     WEATHER_API_KEY: 'YOUR_API_KEY_HERE'
 }
+```
+
+3. Configure Firebase Authentication:
+   - Copy `firebase-config.example.js` to `firebase-config.js`
+   - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+   - Enable Authentication in your Firebase project
+   - Enable Google Sign-In and Email/Password authentication methods
+   - Copy your Firebase configuration from Project Settings
+   - Replace the placeholders in `firebase-config.js` with your actual Firebase config
+
+```javascript
+const firebaseConfig = {
+    apiKey: "YOUR_FIREBASE_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
 ```
 
 ## Running the Application
@@ -66,6 +88,15 @@ http://localhost:3000
 ```
 
 ## Usage
+
+### User Authentication
+1. Click the "Sign In" button in the top-right corner
+2. Choose to sign in with:
+   - **Google**: Click "Continue with Google" and follow the OAuth flow
+   - **Email/Password**: Enter your email and password, then click "Sign In"
+   - **New User**: Click "Sign up" to create a new account
+3. Once signed in, your profile information will be displayed
+4. Click "Sign Out" to log out
 
 ### Location Search
 1. Enter a location name in Vietnam (e.g., "Hanoi", "Ho Chi Minh City", "Da Nang")
@@ -129,12 +160,16 @@ Get points of interest near a location.
 ## Project Structure
 
 ```
-├── index.html          # Main HTML file
-├── app.js              # Frontend JavaScript (map, weather & translation)
-├── config.js           # Configuration (Weather API key)
-├── server.js           # Express server with API endpoints
-├── package.json        # Dependencies and scripts
-└── README.md           # This file
+├── index.html              # Main HTML file with auth UI
+├── app.js                  # Frontend JavaScript (map, weather & translation)
+├── auth.js                 # Firebase authentication logic
+├── config.js               # Weather API key configuration
+├── config.example.js       # Example config file
+├── firebase-config.js      # Firebase configuration
+├── firebase-config.example.js # Example Firebase config file
+├── server.js               # Express server with API endpoints
+├── package.json            # Dependencies and scripts
+└── README.md               # This file
 ```
 
 ## Weather Information
@@ -177,12 +212,14 @@ Features:
 
 - The application uses OpenStreetMap's free APIs with rate limiting
 - Weather data requires an OpenWeatherMap API key (configured in `config.js`)
+- Firebase Authentication requires a Firebase project setup (configured in `firebase-config.js`)
 - Translation uses MyMemory API (free tier with usage limits)
 - Please be respectful of API usage limits
 - Results may vary based on available data in OpenStreetMap
 - The application is configured to search specifically within Vietnam
 - Weather information updates with each location search
 - Translation quality depends on MyMemory API database
+- User authentication data is securely managed by Firebase
 
 ## Dependencies
 
@@ -194,7 +231,7 @@ Features:
 ## Future Enhancements
 
 - Add filters for different types of POIs (restaurants, museums, etc.)
-- Save favorite locations
+- Save favorite locations (requires authentication)
 - Add directions between points
 - Weather forecast (multi-day predictions)
 - Export POI list
@@ -203,6 +240,8 @@ Features:
 - Translation history
 - Offline translation support
 - Voice input for translation
+- User preferences and settings storage
+- Social sharing features
 
 ## License
 
