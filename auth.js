@@ -279,28 +279,39 @@ function closeAuthModal() {
     }
 }
 
+function switchAuthForm(formToShow) {
+    const forms = ['signInForm', 'signUpForm', 'resetPasswordForm'];
+    forms.forEach(formId => {
+        const form = document.getElementById(formId);
+        if (form) {
+            if (formId === formToShow) {
+                form.classList.remove('hidden');
+            } else {
+                form.classList.add('hidden');
+            }
+        }
+    });
+}
+
 function showSignInForm() {
-    document.getElementById('signInForm')?.classList.remove('hidden');
-    document.getElementById('signUpForm')?.classList.add('hidden');
-    document.getElementById('resetPasswordForm')?.classList.add('hidden');
+    switchAuthForm('signInForm');
 }
 
 function showSignUpForm() {
-    document.getElementById('signInForm')?.classList.add('hidden');
-    document.getElementById('signUpForm')?.classList.remove('hidden');
-    document.getElementById('resetPasswordForm')?.classList.add('hidden');
+    switchAuthForm('signUpForm');
 }
 
 function showResetPasswordForm() {
-    document.getElementById('signInForm')?.classList.add('hidden');
-    document.getElementById('signUpForm')?.classList.add('hidden');
-    document.getElementById('resetPasswordForm')?.classList.remove('hidden');
+    switchAuthForm('resetPasswordForm');
 }
 
 function clearForms() {
-    document.querySelectorAll('input[type="email"], input[type="password"]').forEach(input => {
-        input.value = '';
-    });
+    const authModal = document.getElementById('authModal');
+    if (authModal) {
+        authModal.querySelectorAll('input[type="email"], input[type="password"]').forEach(input => {
+            input.value = '';
+        });
+    }
 }
 
 // Event Listeners Setup
