@@ -4,7 +4,8 @@ const cors = require('cors');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+// Hugging Face Spaces serves on port 7860 by default
+const PORT = 7860;
 
 // Middleware
 app.use(cors());

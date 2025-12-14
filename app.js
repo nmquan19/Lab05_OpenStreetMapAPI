@@ -35,7 +35,7 @@ const detectedLang = document.getElementById('detectedLang');
 const autoTranslatePOI = document.getElementById('autoTranslatePOI');
 
 // API base URL
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = '/api';
 const WEATHER_API_URL = 'https://api.openweathermap.org/data/2.5/weather';
 const TRANSLATE_API_URL = 'https://api.mymemory.translated.net/get';
 
